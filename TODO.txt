@@ -1,0 +1,13 @@
+Things to do in the future:
+
+- [ ] Remove hardcoded IP and port, maybe using a .ini file on both the server
+      and client
+
+- [ ] Compile the client with Meson instead of Make and unify client and server
+      into a single Meson project
+
+- [ ] Add pretty UI for the client :3
+
+- [ ] Support for Windows
+
+- [ ] Add a icon to the ROM

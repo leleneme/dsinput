@@ -8,5 +8,10 @@ For the DS client, it is required to have devkitPro (https://devkitpro.org/) and
 dsiwifi (https://github.com/shinyquagsire23/dsiwifi/) installed and properly co-
 nfigured.
 
+NOTE: the project has only been tested on a Nintendo DS(i) XL.
+
+NOTE: for usage of your own you will need to edit
+      client-nds/arm9/source/main9.cpp and change the server ip at line 22.
+
 The project is licensed under the MIT License, found in `LICENSE` at the root
 of the repository.
