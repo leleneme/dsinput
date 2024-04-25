@@ -1,0 +1,3 @@
+client-nds/arm9/Makefile linguist-vendored
+client-nds/arm7/Makefile linguist-vendored
+client-nds/Makefile linguist-vendored
