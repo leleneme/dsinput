@@ -19,6 +19,7 @@ struct app_state {
 };
 
 app_state state = {};
+const char *server_ip = "192.168.0.224";
 
 bool send_data(uint16_t data) {
     uint16_t data_be = htons(data);
@@ -43,7 +44,7 @@ void appwifi_connect() {
 
     state.server_addr.sin_family = AF_INET;
     state.server_addr.sin_port = htons(1032);
-    state.server_addr.sin_addr.s_addr = inet_addr("192.168.0.224");
+    state.server_addr.sin_addr.s_addr = inet_addr(server_ip);
 
     state.is_connected = true;
 }
