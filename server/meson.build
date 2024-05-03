@@ -6,7 +6,7 @@ if not (build_machine.system() == 'linux')
     error('This program currently only supports Linux.')
 endif
 
-sources = ['src/server.cpp', 'src/vcontroller_linux.cpp', 'src/udp_server_linux.cpp']
+sources = ['src/main.cpp', 'src/vcontroller_linux.cpp', 'src/udp_server_linux.cpp']
 
 executable('server',
     sources: sources,
