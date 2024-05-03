@@ -2,6 +2,7 @@
 #include "udp_server.hpp"
 
 #include <cstring>
+#include <arpa/inet.h>
 
 void show_vcontroller_error(vcontroller_error error);
 void show_udp_server_error(udp_server_error error);
@@ -56,7 +57,7 @@ int main(int argc, char** argv) {
         server.receive_data<uint16_t>(&data);
 
         // Assume data is send in big-endianness
-        uint16_t input = (data >> 8) | (data << 8);
+        uint16_t input = ntohs(data);
         verror = vcontroller_update(&vctrl, input);
 
         if (verror != vcontroller_error::none) [[unlikely]] {
