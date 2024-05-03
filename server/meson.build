@@ -8,7 +8,7 @@ endif
 
 sources = ['src/main.cpp', 'src/vcontroller_linux.cpp', 'src/udp_server_linux.cpp']
 
-executable('server',
+executable('dsinput-server',
     sources: sources,
     include_directories: 'inc/',
     native : true)
