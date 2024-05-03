@@ -2,14 +2,11 @@ project('dsinput', 'cpp',
     version : '0.1',
     default_options : ['warning_level=everything', 'cpp_std=c++23'])
 
-sources = ['src/server.cpp']
-
-if build_machine.system() == 'linux'
-    sources += 'src/vcontroller_linux.cpp'
-    sources += 'src/udp_server_linux.cpp'
-else
-    error('Virtual controller and UDP server implementations are only avaliable on Linux.')
+if not (build_machine.system() == 'linux')
+    error('This program currently only supports Linux.')
 endif
+
+sources = ['src/server.cpp', 'src/vcontroller_linux.cpp', 'src/udp_server_linux.cpp']
 
 executable('server',
     sources: sources,
