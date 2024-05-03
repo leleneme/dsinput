@@ -4,4 +4,5 @@ BreakBeforeBraces: Attach
 SortIncludes: 'false'
 IndentWidth: 4
 IndentPPDirectives: BeforeHash
+InsertNewlineAtEOF: 'true'
 ...
