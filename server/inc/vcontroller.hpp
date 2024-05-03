@@ -16,6 +16,7 @@ struct vcontroller {
     struct uinput_setup usetup;
 };
 
-vcontroller_error vcontroller_init(vcontroller *ctl);
-vcontroller_error vcontroller_update(vcontroller *ctl, uint16_t state);
-void vcontroller_destroy(vcontroller *ctl);
+vcontroller_error vcontroller_init(vcontroller* ctl);
+vcontroller_error vcontroller_update(vcontroller* ctl, uint16_t state);
+const char* vcontroller_error_string(vcontroller_error error);
+void vcontroller_destroy(vcontroller* ctl);

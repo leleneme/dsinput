@@ -1,15 +1,16 @@
 #include "udp_server.hpp"
 #include <cassert>
-#include <cstdint>
+#include <unistd.h>
+#include <netdb.h>
 
-udp_server_error udp_server_init(std::string address, int port, udp_server *server) {
+udp_server_error udp_server_init(std::string address, int port, udp_server* server) {
     assert(server != nullptr);
     assert(port <= UINT16_MAX && port > 0);
 
     server->address = address;
     server->addr_info = nullptr;
 
-    struct addrinfo hints = { };
+    struct addrinfo hints = {};
     hints.ai_family = AF_UNSPEC;
     hints.ai_socktype = SOCK_DGRAM;
     hints.ai_protocol = IPPROTO_UDP;
@@ -35,7 +36,21 @@ udp_server_error udp_server_init(std::string address, int port, udp_server *serv
     return udp_server_error::none;
 }
 
-void udp_server_destroy(udp_server *server) {
+const char* udp_server_error_string(udp_server_error error) {
+    switch (error) {
+    case udp_server_error::getaddrinfo:
+        return "Failed to get address information";
+    case udp_server_error::socket_open:
+        return "Failed to create and open socket";
+    case udp_server_error::socket_bind:
+        return "Failed to bind socket";
+    case udp_server_error::none:
+    default:
+        return "Unknow error";
+    }
+}
+
+void udp_server_destroy(udp_server* server) {
     freeaddrinfo(server->addr_info);
     close(server->sock);
 }

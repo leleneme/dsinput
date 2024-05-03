@@ -1,18 +1,36 @@
 #include "vcontroller.hpp"
 #include "udp_server.hpp"
 
-#include <cstdio>
 #include <cstring>
-#include <unistd.h>
-#include <cerrno>
 
-static void show_vcontroller_error(vcontroller_error error);
-static void show_udp_server_error(udp_server_error error);
+void show_vcontroller_error(vcontroller_error error);
+void show_udp_server_error(udp_server_error error);
 
-const char* ip = "0.0.0.0";
-const int port = 1032;
+void print_usage(const char *prog_name) {
+    printf("%s [address] [port]\n", prog_name);
+    exit(0);
+}
 
-int main() {
+int main(int argc, char** argv) {
+    const char* ip = "0.0.0.0";
+    int port = 1032;
+
+    if (argc > 1) {
+        if (strcmp(argv[1], "help") == 0) {
+            print_usage(argv[0]);
+        } else {
+            ip = argv[1];
+        }
+    }
+
+    if (argc > 2) {
+        try {
+            port = std::stoi(argv[2]);
+        } catch (const std::exception& ex) {
+            printf("[Warn] Bad port argument, using default instead\n");
+        }
+    }
+
     vcontroller vctrl {};
     auto verror = vcontroller_init(&vctrl);
     if (verror != vcontroller_error::none) {
@@ -60,40 +78,10 @@ int main() {
     return 0;
 }
 
-static const char* get_vcontroller_error_message(vcontroller_error error) {
-    switch (error) {
-    case vcontroller_error::uinput_dev_create:
-        return "Failed to create virtual controller";
-    case vcontroller_error::uinput_dev_setup:
-        return "Failed to setup virtual controller";
-    case vcontroller_error::uinput_open:
-        return "Failed to open virtual controller file descriptor";
-    case vcontroller_error::uinput_write:
-        return "Failed to write commands to virtual controller file descriptor";
-    case vcontroller_error::none:
-    default:
-        return "Unknow error";
-    }
+void show_vcontroller_error(vcontroller_error error) {
+    fprintf(stderr, "[Error] %s: %s\n", vcontroller_error_string(error), strerror(errno));
 }
 
-static const char* get_udp_server_error_message(udp_server_error error) {
-    switch (error) {
-    case udp_server_error::getaddrinfo:
-        return "Failed to get address information";
-    case udp_server_error::socket_open:
-        return "Failed to create and open socket";
-    case udp_server_error::socket_bind:
-        return "Failed to bind socket";
-    case udp_server_error::none:
-    default:
-        return "Unknow error";
-    }
-}
-
-static void show_vcontroller_error(vcontroller_error error) {
-    fprintf(stderr, "[Error] %s: %s\n", get_vcontroller_error_message(error), strerror(errno));
-}
-
-static void show_udp_server_error(udp_server_error error) {
-    fprintf(stderr, "[Error] %s: %s\n", get_udp_server_error_message(error), strerror(errno));
+void show_udp_server_error(udp_server_error error) {
+    fprintf(stderr, "[Error] %s: %s\n", udp_server_error_string(error), strerror(errno));
 }

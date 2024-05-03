@@ -112,6 +112,22 @@ vcontroller_error vcontroller_update(vcontroller* ctl, uint16_t state) {
     return vcontroller_error::none;
 }
 
+const char* vcontroller_error_string(vcontroller_error error) {
+    switch (error) {
+    case vcontroller_error::uinput_dev_create:
+        return "Failed to create virtual controller";
+    case vcontroller_error::uinput_dev_setup:
+        return "Failed to setup virtual controller";
+    case vcontroller_error::uinput_open:
+        return "Failed to open virtual controller file descriptor";
+    case vcontroller_error::uinput_write:
+        return "Failed to write commands to virtual controller file descriptor";
+    case vcontroller_error::none:
+    default:
+        return "Unknow error";
+    }
+}
+
 void vcontroller_destroy(vcontroller* ctl) {
     ioctl(ctl->fd, UI_DEV_DESTROY);
     close(ctl->fd);
