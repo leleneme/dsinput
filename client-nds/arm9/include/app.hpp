@@ -37,9 +37,9 @@ struct app {
     std::string log;
 
     void on_connect();
-    void tick();
-    void send_data();
     void loop();
+    void tick();
+    void send_data(uint16_t keys);
 
     void set_wifi_connect_cb(WifiConnectHandler handler);
 };

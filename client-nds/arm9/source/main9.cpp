@@ -26,8 +26,6 @@ const char* app_error_to_string(dsinput::app_error err) {
 }
 
 int main() {
-    consoleDemoInit();
-
     auto error = dsinput::app_init(app);
     if (error != dsinput::app_error::none) {
         iprintf("A error occured: %s\n", app_error_to_string(error));
