@@ -1,6 +1,6 @@
 Things to do in the future:
 
-- [ ] Remove hardcoded IP and port, maybe using a .ini file on both the server
+- [X] Remove hardcoded IP and port, maybe using a .ini file on both the server
       and client
 
 - [ ] Compile the client with Meson instead of Make and unify client and server
